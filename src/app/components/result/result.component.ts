@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { AuthServiceService } from 'src/app/services/auth-service.service';
 
 @Component({
@@ -8,36 +9,15 @@ import { AuthServiceService } from 'src/app/services/auth-service.service';
 })
 export class ResultComponent implements OnInit{
 
-  constructor(private authService: AuthServiceService) {
+  @Input() city: any;
+  @Input() state: any;
+  
+  constructor(private route: ActivatedRoute, private authService: AuthServiceService) {
+       }
+
+  ngOnInit() {
     
   }
-  state: any;
-  city: any;
-  storeVal: any;
-  stateName: any;
-  cityName: any
 
-  ngOnInit(): void {
-    this.authService.subject1.subscribe(res => {
-      this.stateName = res;
-    })
-    this.authService.subject.subscribe(res => {
-      this.cityName = res;
-    })
-    this.authService.getCommonApi().subscribe((res: any) => {
-      res.map((data: any) => {
-        if (this.stateName = data.stateName) {
-          this.stateName = data.stateName
-          console.log(data);
-        }
-        data.city.filter((res: any) => {
-          console.log(res);
-          if (this.cityName == res.city) {
-            this.cityName = res.cityName;
-          }
-        })
-      });
-    })
-  }
 
 }

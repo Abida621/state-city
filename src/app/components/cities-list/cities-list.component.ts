@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthServiceService } from 'src/app/services/auth-service.service';
 
@@ -7,33 +8,35 @@ import { AuthServiceService } from 'src/app/services/auth-service.service';
   templateUrl: './cities-list.component.html',
   styleUrls: ['./cities-list.component.scss']
 })
-export class CitiesListComponent implements OnInit {
-
+export class CitiesListComponent implements OnInit  {
+  
   dataSource: any;
-  cityVal: any;
-  state: any;
-  constructor(private authService: AuthServiceService, private router: Router) {}
-  ngOnInit() {
-    const getVal = sessionStorage.getItem('storeval');
-    this.authService.getCommonApi().subscribe((res: any) => {
-      let city = res;
-      city.map((res: any) => {
-        if (getVal == res.stateName) {
-          this.dataSource = res.city;
-          this.state = res.stateName;
-        }
-      })
-      
-    })
+  selectedValue: boolean = false;
+  selectedCity: any
+  selectedState: any
+
+  @Output() selectedStateName = new EventEmitter<any>();
+  @Output() selectedCityName = new EventEmitter<any>();
+
+  StateName: any = sessionStorage.getItem('StateName');
+  constructor(private authService: AuthServiceService, private router: Router) {
   }
 
-  selectedStateChange(event: any) {
-    this.cityVal = event?.target.value
+  ngOnInit() : void{
+   this.authService.getCommonApi().subscribe((res: any) => {
+    res.forEach((element: any) => {
+      if(this.StateName == element.stateName) {
+        this.dataSource = element.city;
+      }
+    });
+   })
   }
 
-  onSubmit() {
-    this.authService.subject.next(this.cityVal);
-    this.authService.subject1.next(this.state);
-    this.router.navigate(['result'])
+  onSubmit(options: any) {
+    console.log(options.value);
+    this.selectedValue = true;
+    this.selectedCity = options.value;
+    this.selectedState = this.StateName;
   }
+  
 }

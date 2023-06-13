@@ -8,7 +8,8 @@ import { CitiesListComponent } from './components/cities-list/cities-list.compon
 import { ResultComponent } from './components/result/result.component';
 import { RouterModule } from '@angular/router';
 import {HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AuthServiceService } from './services/auth-service.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,9 +22,10 @@ import { FormsModule } from '@angular/forms';
     RouterModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [AuthServiceService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

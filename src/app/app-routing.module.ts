@@ -5,9 +5,10 @@ import { CitiesListComponent } from './components/cities-list/cities-list.compon
 import { ResultComponent } from './components/result/result.component';
 
 const routes: Routes = [
-  {path: 'list', component: ListComponent},
-  {path: 'cities-list', component: CitiesListComponent},
-  {path: 'result', component: ResultComponent}
+  { path: '', redirectTo: '/list', pathMatch: 'full' },
+  { path: 'list', component: ListComponent },
+  { path: 'cities-list', component: CitiesListComponent },
+  { path: 'result', component: ResultComponent }
 ];
 
 @NgModule({

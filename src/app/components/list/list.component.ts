@@ -1,5 +1,7 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { Route, Router } from '@angular/router';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthServiceService } from 'src/app/services/auth-service.service';
 
 @Component({
@@ -12,27 +14,16 @@ export class ListComponent implements OnInit {
   constructor(private authService: AuthServiceService, private router: Router) {}
 
   dataSource: any;
-  selectedState: any;
-  @Output() onSelected = new EventEmitter<any>();
-  ngOnInit(): void {
-    this.authService.getCommonApi().subscribe((res: any) => {
-      this.dataSource = res;
-      console.log(this.dataSource);
-      
-    })
-  }
+ ngOnInit(): void {
+   this.authService.getCommonApi().subscribe((data:any) => {
+    this.dataSource = data;
+   })
+ }
 
-  selectedStateChange(data: any) {
-    this.selectedState = data.target.value;
-  }
-  onSubmit() {
-    this.dataSource.map((data: any) => {
-      if(this.selectedState == data.stateName) {
-        // this.authService.subject1.next(this.selectedState)
-        sessionStorage.setItem('storeval', this.selectedState)
-        this.router.navigate(['/cities-list'])
-      }
-    });
-  }
+ onSubmit(options: any) {
+  console.log(options.value);
+  sessionStorage.setItem('StateName', options.value);
+  this.router.navigate(['/cities-list'])
+ }
 
 }

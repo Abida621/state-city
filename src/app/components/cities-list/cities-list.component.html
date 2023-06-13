@@ -1,10 +1,13 @@
-<div class="d-flex">
-    <label for="">Cities:</label>
-    <select class="form-control" (change)="selectedStateChange($event)">
-        <option>--Select--</option>
-        <option *ngFor="let item of dataSource" value="{{item.cityName}}">{{item.cityName}}</option>
-    </select>
-</div>
+<br><br>
+<label for="">Select City</label>
+<select class="form-select" aria-label="Default select example" #options>
+    <option selected>Open this select menu</option>
+    <option  *ngFor="let items of dataSource" value="{{items.cityName}}">{{items.cityName}}</option>
+  </select><br>
+  <button type="button" class="btn btn-primary" (click)="onSubmit(options)">Submit</button>
 
-<button class="btn btn-primary" (click)="onSubmit()">Submit</button>
+  <!-- <p>
+    Today's item: {{item}}
+  </p> -->
 
+  <app-result *ngIf="selectedValue" [city]="selectedCity" [state]="selectedState"></app-result>
