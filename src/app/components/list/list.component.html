@@ -1,0 +1,9 @@
+<div class="d-flex">
+    <label for="">States:</label>
+    <select class="form-control" (change)="selectedStateChange($event)">
+        <option>--Select--</option>
+        <option *ngFor="let items of dataSource">{{items.stateName}}</option>
+    </select>
+</div>
+
+<button class="btn btn-primary" (click)="onSubmit()">Submit</button>
